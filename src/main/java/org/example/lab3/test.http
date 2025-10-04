@@ -1,0 +1,24 @@
+### Create a new AddressBook
+POST http://localhost:8080/api/addressbooks
+Content-Type: application/json
+
+###
+
+### Add a Buddy to AddressBook #1
+POST http://localhost:8080/api/addressbooks/1/buddies
+Content-Type: application/json
+
+{
+  "name": "Hasib",
+  "phoneNumber": "123-456"
+}
+
+###
+
+### Get AddressBook #1 (with buddies)
+GET http://localhost:8080/api/addressbooks/1
+
+###
+
+### Remove Buddy with ID=2 from AddressBook #1
+DELETE http://localhost:8080/api/addressbooks/1/buddies/1
