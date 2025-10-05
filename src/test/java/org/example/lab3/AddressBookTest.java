@@ -18,8 +18,8 @@ class AddressBookTest {
     @BeforeEach
     void setUp() {
         addressBook = new AddressBook();
-        buddy1 = new BuddyInfo("Hasib", "123-456-7890");
-        buddy2 = new BuddyInfo("Hasib Khodayar", "987-654-3210");
+        buddy1 = new BuddyInfo("Hasib", "123-456-7890", "44 street");
+        buddy2 = new BuddyInfo("Hasib Khodayar", "987-654-3210", "45 street");
     }
 
     @Test
@@ -46,12 +46,13 @@ class AddressBookTest {
 
     @Test
     void testAddNewBuddy() {
-        addressBook.addNewBuddy("Hasib K", "555-000-1111");
+        addressBook.addNewBuddy("Hasib K", "555-000-1111", "46 street");
         List<BuddyInfo> buddies = addressBook.getBuddies();
 
         assertEquals(1, buddies.size());
         assertEquals("Hasib K", buddies.get(0).getName());
         assertEquals("555-000-1111", buddies.get(0).getPhoneNumber());
+        assertEquals("46 street", buddies.get(0).getAddress());
     }
 
     @Test

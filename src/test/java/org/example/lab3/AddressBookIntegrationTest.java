@@ -34,6 +34,7 @@ public class AddressBookIntegrationTest {
         BuddyInfo buddy = new BuddyInfo();
         buddy.setName("Hasib");
         buddy.setPhoneNumber("123-456");
+        buddy.setAddress("44 street");
 
         ResponseEntity<AddressBook> addResponse =
                 restTemplate.postForEntity(url("/api/addressbooks/" + book.getId() + "/buddies"),
@@ -45,6 +46,8 @@ public class AddressBookIntegrationTest {
                 url("/api/addressbooks/" + book.getId()), AddressBook.class);
         assertThat(retrieved.getBuddies()).hasSize(1);
         assertThat(retrieved.getBuddies().get(0).getName()).isEqualTo("Hasib");
+        assertThat(retrieved.getBuddies().get(0).getPhoneNumber()).isEqualTo("123-456");
+        assertThat(retrieved.getBuddies().get(0).getAddress()).isEqualTo("44 street");
     }
 
 
@@ -61,6 +64,7 @@ public class AddressBookIntegrationTest {
         BuddyInfo buddy = new BuddyInfo();
         buddy.setName("Hasib");
         buddy.setPhoneNumber("000-000");
+        buddy.setAddress("44 street");
 
         ResponseEntity<AddressBook> response =
                 restTemplate.postForEntity(url("/api/addressbooks/999/buddies"), buddy, AddressBook.class);

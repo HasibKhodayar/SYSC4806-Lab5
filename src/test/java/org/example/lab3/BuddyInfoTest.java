@@ -12,7 +12,7 @@ class BuddyInfoTest {
 
     @BeforeEach
     void setUp() {
-        buddy = new BuddyInfo("Hasib", "123-456-7890");
+        buddy = new BuddyInfo("Hasib", "123-456-7890", "44 street");
     }
 
     @Test
@@ -34,8 +34,14 @@ class BuddyInfoTest {
     }
 
     @Test
+    void testSetAddress() {
+        buddy.setAddress("45 street");
+        assertEquals("45 street", buddy.getAddress());
+    }
+
+    @Test
     void testToString() {
-        String expected = "Name: Hasib, Phone Number: 123-456-7890";
+        String expected = "Name: Hasib, Phone Number: 123-456-7890, Address: 44 street";
         assertEquals(expected, buddy.toString());
     }
 
@@ -43,7 +49,7 @@ class BuddyInfoTest {
     void testChangeValuesAndToString() {
         buddy.setName("Hasib K");
         buddy.setPhoneNumber("555-000-1111");
-        String expected = "Name: Hasib K, Phone Number: 555-000-1111";
+        String expected = "Name: Hasib K, Phone Number: 555-000-1111, Address: 44 street";
         assertEquals(expected, buddy.toString());
     }
 }

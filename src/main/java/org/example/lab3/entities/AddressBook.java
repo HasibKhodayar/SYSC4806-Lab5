@@ -37,8 +37,8 @@ public class AddressBook {
         buddy.setAddressBook(null);
     }
 
-    public void addNewBuddy(String name, String phoneNumber) {
-        BuddyInfo newBuddy = new BuddyInfo(name, phoneNumber);
+    public void addNewBuddy(String name, String phoneNumber, String address) {
+        BuddyInfo newBuddy = new BuddyInfo(name, phoneNumber, address);
         this.addBuddy(newBuddy);
     }
 

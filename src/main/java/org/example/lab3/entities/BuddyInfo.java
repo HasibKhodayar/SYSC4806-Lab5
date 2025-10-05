@@ -14,6 +14,7 @@ public class BuddyInfo {
 
     private String name;
     private String phoneNumber;
+    private String address;
 
     @ManyToOne
     @com.fasterxml.jackson.annotation.JsonBackReference
@@ -21,9 +22,10 @@ public class BuddyInfo {
 
     public BuddyInfo() {}
 
-    public BuddyInfo(String name, String phoneNumber) {
+    public BuddyInfo(String name, String phoneNumber, String address) {
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     public Long getId() {
@@ -36,10 +38,19 @@ public class BuddyInfo {
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
     public void setAddressBook(AddressBook addressBook) { this.addressBook = addressBook; }
 
     @Override
     public String toString(){
-        return "Name: " + this.name + ", Phone Number: " + this.phoneNumber;
+        return "Name: " + this.name + ", Phone Number: " + this.phoneNumber + ", Address: " + this.address;
     }
 }
