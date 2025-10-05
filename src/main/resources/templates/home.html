@@ -6,6 +6,10 @@
 <body>
 <h1>All Address Books</h1>
 
+<form action="/api/addressbooks" method="post">
+    <button type="submit">+ Create New AddressBook</button>
+</form>
+
 <ul>
     <li th:each="ab : ${addressBooks}">
         <a th:href="@{'/addressbooks/' + ${ab.id}}">AddressBook [[${ab.id}]]</a>

@@ -1,15 +1,88 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
+    <meta charset="UTF-8">
     <title>AddressBook</title>
 </head>
 <body>
 <h1 th:text="'AddressBook ' + ${addressBook.id}"></h1>
 
-<ul>
-    <li th:each="buddy : ${addressBook.buddies}"
-        th:text="${buddy.id} + '. ' + ${buddy.name} + ' Phone Number: ' + ${buddy.phoneNumber} + ', Address: ' + ${buddy.address} + ''">
+<ul id="buddy-list">
+    <li th:each="buddy : ${addressBook.buddies}">
+        <span th:text="${buddy.id} + '. ' + ${buddy.name} + ' | Phone: ' + ${buddy.phoneNumber} + ', Address: ' + ${buddy.address}"></span>
+        <button type="button"
+                th:attr="onclick='removeBuddy(' + ${addressBook.id} + ',' + ${buddy.id} + ')'">
+            Remove
+        </button>
     </li>
 </ul>
+
+<hr>
+
+<h2>Add a Buddy</h2>
+<form id="buddyForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required><br>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required><br><br>
+
+    <button type="submit">Add Buddy</button>
+</form>
+
+<script th:inline="javascript">
+    const form = document.getElementById('buddyForm');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const id = /*[[${addressBook.id}]]*/ '1';
+        const name = document.getElementById('name').value;
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        const address = document.getElementById('address').value;
+
+        const payload = { name, phoneNumber, address };
+
+        try {
+            const response = await fetch(`/api/addressbooks/${id}/buddies`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                alert('Buddy added successfully!');
+                location.reload();
+            } else {
+                const error = await response.text();
+                alert('Error: ' + error);
+            }
+        } catch (err) {
+            alert('Error adding buddy: ' + err.message);
+        }
+    });
+
+    async function removeBuddy(addressBookId, buddyId) {
+        if (!confirm('Are you sure you want to remove this buddy?')) return;
+
+        try {
+            const response = await fetch(`/api/addressbooks/${addressBookId}/buddies/${buddyId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                alert('Buddy removed successfully!');
+                location.reload();
+            } else {
+                const error = await response.text();
+                alert('Error: ' + error);
+            }
+        } catch (err) {
+            alert('Error removing buddy: ' + err.message);
+        }
+    }
+</script>
 </body>
 </html>
