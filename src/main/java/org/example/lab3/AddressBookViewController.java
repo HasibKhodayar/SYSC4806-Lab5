@@ -22,4 +22,11 @@ public class AddressBookViewController {
         model.addAttribute("addressBook", ab);
         return "addressbook"; // thymeleaf template name
     }
+
+    @GetMapping("/")
+    public String viewAllAddressbooks(Model model) {
+        Iterable<AddressBook> addressBooks = addressBookRepository.findAll();
+        model.addAttribute("addressBooks", addressBooks);
+        return "home";
+    }
 }
